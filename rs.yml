@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata: 
+   name: myweb-rs
+spec:
+   replicas: 3
+   selector:
+      matchExpressions:
+        - { key: col, operator: In, values: [ chd ] }
+        - { key: country, operator: In, values: [ in ] }
+   template:
+      metadata:
+         name: myweb-rs-pod
+         labels:
+            col: chd
+            country: in
+            pin: "2"
+      spec:
+         containers:
+            - name: rs-con
+              image: vimal13/apache-webserver-php
